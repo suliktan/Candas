@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-6">
+  <!-- Большой баннер -->
+  <a href="{% url 'product_list' %}" class="block mb-8">
+    <div class="h-64 md:h-80 rounded-2xl overflow-hidden glass-panel flex items-center justify-center bg-cover bg-center" style="background-image: url('{% static 'images/main-banner.jpg' %}');">
+      <div class="text-center text-white bg-black/40 p-6 rounded-xl">
+        <h1 class="text-3xl md:text-5xl font-bold">Профессиональная униформа для всех</h1>
+        <p class="mt-2 text-lg">Стиль, комфорт и надежность в каждой детали</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- Информация о компании -->
+  <div class="glass-panel p-6 mb-8">
+    <h2 class="text-2xl font-bold mb-4">О нас</h2>
+    <p class="mb-4">
+      Мы — команда специалистов, которая уже более 5 лет создаёт качественную и функциональную одежду для медицинских учреждений и предприятий сферы HoReCa по всей России.
+    </p>
+    <p>
+      Наша миссия — обеспечить работников комфортом, безопасностью и эстетикой на рабочем месте.
+    </p>
+  </div>
+
+  <!-- Блок "Преимущества" -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+    <div class="glass-panel text-center p-6">
+      <i class="fas fa-award text-4xl text-blue-500 mb-4"></i>
+      <h3 class="text-xl font-bold mb-2">Более 15 лет на рынке</h3>
+      <p>Надёжный партнёр для тысяч клиентов по всей России и Туркменистану</p>
+    </div>
+    <div class="glass-panel text-center p-6">
+      <i class="fas fa-truck text-4xl text-blue-500 mb-4"></i>
+      <h3 class="text-xl font-bold mb-2">Доставка по всей России</h3>
+      <p>Оперативная доставка в любую точку страны</p>
+    </div>
+    <div class="glass-panel text-center p-6">
+      <i class="fas fa-store text-4xl text-blue-500 mb-4"></i>
+      <h3 class="text-xl font-bold mb-2">Множество точек продаж</h3>
+      <p>Более тысячи довольных клиентов и точек по всей стране</p>
+    </div>
+  </div>
+
+  <!-- Баннеры: Медицина / HoReCa -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+    <a href="{% url 'product_list' %}?main_category=medical" class="block">
+      <div class="h-48 rounded-2xl overflow-hidden glass-panel flex items-center justify-center bg-cover bg-center" style="background-image: url('{% static 'images/medical-banner.jpg' %}');">
+        <div class="text-center text-white bg-black/40 p-4 rounded-xl">
+          <h3 class="text-2xl font-bold">Медицина</h3>
+          <p>Халаты, костюмы, аксессуары</p>
+        </div>
+      </div>
+    </a>
+    <a href="{% url 'product_list' %}?main_category=horeca" class="block">
+      <div class="h-48 rounded-2xl overflow-hidden glass-panel flex items-center justify-center bg-cover bg-center" style="background-image: url('{% static 'images/horeca-banner.jpg' %}');">
+        <div class="text-center text-white bg-black/40 p-4 rounded-xl">
+          <h3 class="text-2xl font-bold">HoReCa</h3>
+          <p>Форма для поваров и официантов</p>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <!-- 3 рекламных баннера -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="h-40 rounded-xl overflow-hidden glass-panel bg-cover bg-center" style="background-image: url('{% static 'images/ad1.jpg' %}');"></div>
+    <div class="h-40 rounded-xl overflow-hidden glass-panel bg-cover bg-center" style="background-image: url('{% static 'images/ad2.jpg' %}');"></div>
+    <div class="h-40 rounded-xl overflow-hidden glass-panel bg-cover bg-center" style="background-image: url('{% static 'images/ad3.jpg' %}');"></div>
+  </div>
+</div>
+{% endblock %}

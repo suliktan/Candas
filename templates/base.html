@@ -1,0 +1,101 @@
+{% load static %}
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Gandas Uniforms{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="bg-[linear-gradient(135deg,#ffffff_0%,#e6f2ff_100%)] text-[#00008B]">
+  <!-- Синяя полоска сверху -->
+  <div class="bg-[#00008B] text-white text-sm py-1 px-4 flex justify-between items-center">
+    <div>г. Москва, ул. Астраханский переулок 1/15</div>
+    <div class="flex gap-4">
+      <a href="tel:+79936868471" class="hover:text-blue-200">+7 993 686 84 71</a>
+      <a href="mailto:candashuniform@gmail.com" class="hover:text-blue-200">candashuniform@gmail.com</a>
+    </div>
+  </div>
+
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-white/20 border-b border-white/10 shadow-lg">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="text-2xl font-bold">Gandas Uniforms</div>
+      <nav class="hidden md:flex space-x-6">
+        <a href="{% url 'home' %}" class="hover:text-blue-500">Главная</a>
+        <a href="{% url 'product_list' %}" class="hover:text-blue-500">Каталог</a>
+        <a href="{% url 'info_page' slug='about' %}" class="hover:text-blue-500">О компании</a>
+        <a href="{% url 'how_to_order' %}" class="hover:text-blue-500">Как заказать</a>
+        <a href="{% url 'faq' %}" class="hover:text-blue-500">FAQ</a>
+        <a href="{% url 'info_page' slug='contacts' %}" class="hover:text-blue-500">Контакты</a>
+      </nav>
+      <a href="{% url 'cart_view' %}" class="relative">
+        <i class="fas fa-shopping-cart text-2xl"></i>
+        {% if request.session.cart %}
+          {% with cart_items=request.session.cart.values|length %}
+            {% if cart_items > 0 %}
+              <span class="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">{{ cart_items }}</span>
+            {% endif %}
+          {% endwith %}
+        {% endif %}
+      </a>
+    </div>
+  </header>
+
+  <main class="min-h-[calc(100vh-200px)]">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="backdrop-blur-md bg-white/20 border-t border-white/10 shadow-lg py-6 text-center">
+    <p>© 2026 Gandas Uniforms. Все права защищены.</p>
+    <p>Телефон: +7 (XXX) XXX-XX-XX | Email: info@gandas.uniforms</p>
+  </footer>
+
+  <a href="https://wa.me/79936868471" class="fixed bottom-6 right-6 w-14 h-14 bg-green-500 text-white rounded-full flex items-center justify-center shadow-lg text-xl z-50" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- QR Modal -->
+  <div id="qr-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white p-6 rounded-lg">
+      <canvas id="qr-canvas"></canvas>
+      <button onclick="closeQRModal()" class="mt-4 bg-red-500 text-white px-4 py-2 rounded">Закрыть</button>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    let qrCodeInstance = null;
+    function generateQR(url) {
+      const modal = document.getElementById('qr-modal');
+      if (qrCodeInstance) qrCodeInstance.clear();
+      qrCodeInstance = new QRCode(document.getElementById('qr-canvas'), {
+        text: url,
+        width: 200,
+        height: 200
+      });
+      modal.classList.remove('hidden');
+    }
+    function closeQRModal() {
+      document.getElementById('qr-modal').classList.add('hidden');
+      if (qrCodeInstance) qrCodeInstance.clear();
+    }
+    async function copyLink(url) {
+      try {
+        await navigator.clipboard.writeText(url);
+        alert('Ссылка скопирована!');
+      } catch (err) {
+        console.error('Failed to copy: ', err);
+      }
+    }
+  </script>
+
+  {% if messages %}
+    <script>
+      {% for message in messages %}
+        alert("{{ message }}");
+      {% endfor %}
+    </script>
+  {% endif %}
+</body>
+</html>

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Часто задаваемые вопросы{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Часто задаваемые вопросы</h1>
+
+  {% if faqs %}
+    <div class="glass-panel" style="background: var(--card-bg); padding: 32px; border-radius: var(--border-radius); box-shadow: var(--shadow);">
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        {% for faq in faqs %}
+          <div style="border-bottom: 1px solid #eee; padding-bottom: 24px; margin-bottom: 24px; last-child:border-bottom:none; last-child:margin-bottom:0;">
+            <h3 style="color: var(--primary-color); margin-bottom: 12px;">{{ faq.question }}</h3>
+            <div style="line-height: 1.7; color: #555;">{{ faq.answer|safe }}</div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% else %}
+    <div class="glass-panel" style="background: var(--card-bg); padding: 60px; text-align: center; border-radius: var(--border-radius); box-shadow: var(--shadow);">
+      <p>Вопросы пока не добавлены.</p>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

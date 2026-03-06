@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% block title %}Оформление заказа — Gandas Uniforms{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto">
+  <h1 class="text-3xl font-bold mb-8 text-slate-900">Оформление заказа</h1>
+
+  <form method="post" class="flex flex-col lg:flex-row gap-8">
+    {% csrf_token %}
+    
+    <div class="flex-grow">
+      <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+        <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+            <span class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-sm">1</span>
+            Контактные данные
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div class="col-span-2">
+             <label for="full_name" class="block text-sm font-medium text-gray-700 mb-2">ФИО *</label>
+             <input type="text" id="full_name" name="full_name" required 
+                    class="w-full bg-gray-50 border border-gray-200 text-slate-900 rounded-lg px-4 py-3 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+                    placeholder="Иванов Иван Иванович">
+          </div>
+          
+          <div>
+             <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Телефон *</label>
+             <input type="tel" id="phone" name="phone" required 
+                    class="w-full bg-gray-50 border border-gray-200 text-slate-900 rounded-lg px-4 py-3 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+                    placeholder="+7 (999) 000-00-00">
+          </div>
+          
+          <div>
+             <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+             <input type="email" id="email" name="email" required 
+                    class="w-full bg-gray-50 border border-gray-200 text-slate-900 rounded-lg px-4 py-3 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+                    placeholder="example@mail.ru">
+          </div>
+        </div>
+
+        <h2 class="text-xl font-bold text-slate-900 mb-6 mt-10 flex items-center gap-2">
+            <span class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-sm">2</span>
+            Доставка и комментарии
+        </h2>
+
+        <div class="mb-6">
+             <label for="address" class="block text-sm font-medium text-gray-700 mb-2">Адрес доставки *</label>
+             <input type="text" id="address" name="address" required 
+                    class="w-full bg-gray-50 border border-gray-200 text-slate-900 rounded-lg px-4 py-3 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+                    placeholder="Город, улица, дом, квартира">
+        </div>
+
+        <div class="mb-6">
+             <label for="comment" class="block text-sm font-medium text-gray-700 mb-2">Комментарий к заказу</label>
+             <textarea id="comment" name="comment" rows="3" 
+                       class="w-full bg-gray-50 border border-gray-200 text-slate-900 rounded-lg px-4 py-3 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+                       placeholder="Дополнительная информация, код домофона и т.д."></textarea>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="w-full lg:w-96 flex-shrink-0">
+      <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 sticky top-24">
+        <h2 class="text-xl font-bold text-slate-900 mb-6">Сумма заказа</h2>
+        
+        <div class="space-y-4 mb-6">
+            <div class="flex justify-between text-gray-600">
+                <span>Товаров:</span>
+                <span class="font-medium text-slate-900">{{ total_quantity }} шт.</span>
+            </div>
+            <div class="flex justify-between items-center text-lg font-bold text-slate-900 pt-4 border-t border-gray-100">
+                <span>Итого:</span>
+                <span class="text-blue-600">{{ total }} ₽</span>
+            </div>
+        </div>
+
+        {% if is_wholesale %}
+        <div class="bg-yellow-50 border border-yellow-100 rounded-xl p-4 mb-6">
+            <div class="flex items-start gap-3">
+                <i class="fas fa-check-circle text-yellow-500 mt-1"></i>
+                <div class="text-sm text-yellow-800">
+                    <strong>Оптовый заказ активирован!</strong>
+                    <p class="mt-1 opacity-90">Менеджер свяжется с вами для уточнения персональной скидки и условий доставки.</p>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-6 text-sm text-blue-800">
+            <i class="fas fa-info-circle mr-2"></i> Итоговая стоимость и доставка будут подтверждены менеджером.
+        </div>
+        {% endif %}
+
+        <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-green-600/30 transition transform active:scale-[0.98]">
+            Подтвердить заказ
+        </button>
+        
+        <div class="mt-4 text-center">
+            <a href="{% url 'cart_view' %}" class="text-sm text-gray-500 hover:text-slate-900 underline">Вернуться в корзину</a>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+  document.getElementById('phone').addEventListener('input', function() {
+    let value = this.value.replace(/\D/g, '');
+    if (value.length > 10) value = value.substring(0, 10);
+    let formatted = '';
+    if (value.length >= 1) formatted = '+7 (' + value.substring(0, 3);
+    if (value.length >= 4) formatted += ') ' + value.substring(3, 6);
+    if (value.length >= 7) formatted += '-' + value.substring(6, 8);
+    if (value.length >= 9) formatted += '-' + value.substring(8, 10);
+    this.value = formatted;
+  });
+</script>
+{% endblock %}

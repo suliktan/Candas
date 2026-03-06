@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="glass-panel" style="background: var(--card-bg); padding: 40px; border-radius: var(--border-radius); box-shadow: var(--shadow);">
+    <h1>{{ page.title }}</h1>
+    <div style="margin-top: 24px; line-height: 1.7; font-size: 1.05rem;">
+      {{ page.content|safe }}
+    </div>
+  </div>
+</div>
+{% endblock %}

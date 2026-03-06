@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Как заказать{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Как заказать</h1>
+
+  <div class="glass-panel" style="background: var(--card-bg); padding: 40px; border-radius: var(--border-radius); box-shadow: var(--shadow);">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <div style="display: flex; flex-direction: column; gap: 32px;">
+        
+        <div style="display: flex; gap: 24px; align-items: flex-start;">
+          <div style="background: var(--primary-color); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold;">1</div>
+          <div>
+            <h3>Выберите товары</h3>
+            <p style="color: #555; margin-top: 8px;">Перейдите в каталог «Медицина» или «HoReCa», выберите нужные товары и добавьте их в корзину.</p>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 24px; align-items: flex-start;">
+          <div style="background: var(--primary-color); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold;">2</div>
+          <div>
+            <h3>Оформите заказ</h3>
+            <p style="color: #555; margin-top: 8px;">Перейдите в корзину, проверьте выбранные товары и нажмите «Оформить заказ». Заполните контактные данные.</p>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 24px; align-items: flex-start;">
+          <div style="background: var(--primary-color); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold;">3</div>
+          <div>
+            <h3>Подтверждение от менеджера</h3>
+            <p style="color: #555; margin-top: 8px;">Наш менеджер свяжется с вами для подтверждения заказа, уточнения деталей и расчёта итоговой стоимости.</p>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 24px; align-items: flex-start;">
+          <div style="background: var(--primary-color); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold;">4</div>
+          <div>
+            <h3>Доставка</h3>
+            <p style="color: #555; margin-top: 8px;">После подтверждения заказ доставляется по указанному адресу в оговоренные сроки.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 48px; text-align: center; padding: 24px; background: #f0f8ff; border-radius: 12px;">
+        <p style="font-size: 1.1rem; color: var(--primary-color); margin: 0;">
+          <i class="fas fa-phone" style="margin-right: 8px;"></i>
+          Вопросы? Звоните: <a href="tel:+79936868471" style="color: inherit; text-decoration: underline;">+7 993 686 84 71</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

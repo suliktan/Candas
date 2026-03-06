@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<div class="glass-panel">
+  <h1 class="text-3xl font-bold mb-4">{{ product.name }}</h1>
+
+  {% if product.images.all %}
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-2 mb-4">
+      {% for img in product.images.all %}
+        <img src="{{ img.image.url }}" alt="Изображение {{ forloop.counter }}" class="cursor-pointer" onclick="document.getElementById('main-img').src='{{ img.image.url }}'">
+      {% endfor %}
+    </div>
+    <img id="main-img" src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="w-full max-h-96 object-contain mb-4">
+  {% endif %}
+
+  <p class="text-xl text-blue-500 font-bold mb-2">Цена: {{ product.base_price }} ₽</p>
+  <p class="mb-4">{{ product.description }}</p>
+
+  <div class="flex gap-3 mt-6">
+    <button onclick="generateQR(window.location.href)" class="bg-blue-500 text-white px-4 py-2 rounded">QR-код</button>
+    <button onclick="copyLink(window.location.href)" class="bg-green-500 text-white px-4 py-2 rounded">Поделиться</button>
+  </div>
+
+  <form action="{% url 'add_to_cart' product.variants.first.id %}" class="mt-4">
+    {% csrf_token %}
+    <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded font-semibold">Добавить в корзину</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}Каталог товаров{% endblock %}
+
+{% block content %}
+<h1 class="text-3xl font-bold mb-6">Каталог</h1>
+
+<div class="glass-panel mb-6 p-4">
+  <h3 class="text-lg font-semibold mb-2">Фильтры</h3>
+  <form method="get" class="flex flex-wrap gap-4">
+    <select name="category" class="p-2 border rounded" onchange="this.form.submit()">
+      <option value="">Все категории</option>
+      {% for cat in categories %}
+        <option value="{{ cat.slug }}" {% if selected_category == cat.slug %}selected{% endif %}>
+          {{ cat.name }}
+        </option>
+      {% endfor %}
+    </select>
+  </form>
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  {% for product in products %}
+    <div class="glass-panel p-4">
+      {% if product.images.first %}
+        <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="w-full h-40 object-cover rounded mb-3">
+      {% else %}
+        <div class="w-full h-40 bg-gray-200 rounded mb-3 flex items-center justify-center">Нет фото</div>
+      {% endif %}
+      <h3 class="text-lg font-bold mb-1">{{ product.name }}</h3>
+      <p class="text-blue-500 font-semibold">от {{ product.base_price }} ₽</p>
+      <a href="{% url 'product_detail' product.pk %}" class="text-blue-600 mt-2 inline-block">Подробнее</a>
+    </div>
+  {% empty %}
+    <p>Товары не найдены.</p>
+  {% endfor %}
+</div>
+
+<!-- Пагинация -->
+{% if is_paginated %}
+  <div class="flex justify-center mt-6 space-x-2">
+    {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}" class="px-4 py-2 bg-blue-500 text-white rounded">&>
+    {% endif %}
+    <span class="px-4 py-2 bg-gray-200 rounded">{{ page_obj.number }}</span>
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}" class="px-4 py-2 bg-blue-500 text-white rounded">&raquo;</a>
+    {% endif %}
+  </div>
+{% endif %}
+{% endblock %}
