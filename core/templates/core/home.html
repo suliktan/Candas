@@ -4,7 +4,7 @@
 {% block content %}
 <div class="container mx-auto px-4 py-6">
   <!-- Главный баннер -->
-  <div class="glass-panel p-8 mb-10 rounded-2xl overflow-hidden relative bg-cover bg-center" style="background-image: url('{% static 'images/main-banner.jpg' %}');">
+  <div class="glass-panel min-h-[400px] p-[80px] mb-10 rounded-2xl overflow-hidden relative bg-cover bg-center" style="background-image: url('{% static 'images/main-banner.jpg' %}');">
     <div class="absolute inset-0 bg-black/40 rounded-2xl"></div>
     <div class="relative z-10 text-center max-w-2xl mx-auto">
       <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Профессиональная униформа для всех</h1>
@@ -50,13 +50,13 @@
     <a href="{% url 'product_list' %}?main_category=medical" class="banner-medical bg-cover bg-center relative" style="background-image: url('{% static 'images/medical-banner.jpg' %}');">
       <div class="banner-text-overlay">
         <h3 class="text-2xl">Медицина</h3>
-        <p>Халаты, костюмы, аксессуары</p>
+        <p class="text-xl">Халаты, костюмы, аксессуары</p>
       </div>
     </a>
     <a href="{% url 'product_list' %}?main_category=horeca" class="banner-horeca bg-cover bg-center relative" style="background-image: url('{% static 'images/horeca-banner.jpg' %}');">
       <div class="banner-text-overlay">
         <h3 class="text-2xl">HoReCa</h3>
-        <p>Форма для поваров и официантов</p>
+        <p class="text-lg">Форма для поваров и официантов</p>
       </div>
     </a>
   </div>
@@ -90,18 +90,18 @@
   </div>
 
   <!-- 3 рекламных баннера -->
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-    <div class="h-40 rounded-xl overflow-hidden glass-panel bg-cover bg-center relative animate-fade-in-up hover:scale-105 transition-custom" style="background-image: url('{% static 'images/ad1.jpg' %}'); animation-delay: 0.7s;">
+  <div class="grid min-h-[200px] grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="h-40 h-[200px] rounded-xl overflow-hidden glass-panel bg-cover bg-center relative animate-fade-in-up hover:scale-105 transition-custom" style="background-image: url('{% static 'images/ad1.jpg' %}'); animation-delay: 0.7s;">
       <div class="absolute inset-0 bg-black/30 rounded-xl flex items-center justify-center">
         <span class="text-white font-bold text-center px-4">Скидки до 30% на осеннюю коллекцию!</span>
       </div>
     </div>
-    <div class="h-40 rounded-xl overflow-hidden glass-panel bg-cover bg-center relative animate-fade-in-up hover:scale-105 transition-custom" style="background-image: url('{% static 'images/ad2.jpg' %}'); animation-delay: 0.8s;">
+    <div class="h-[200px] rounded-xl overflow-hidden glass-panel bg-cover bg-center relative animate-fade-in-up hover:scale-105 transition-custom" style="background-image: url('{% static 'images/ad2.jpg' %}'); animation-delay: 0.8s;">
       <div class="absolute inset-0 bg-black/30 rounded-xl flex items-center justify-center">
         <span class="text-white font-bold text-center px-4">Индивидуальный пошив по вашим меркам</span>
       </div>
     </div>
-    <div class="h-40 rounded-xl overflow-hidden glass-panel bg-cover bg-center relative animate-fade-in-up hover:scale-105 transition-custom" style="background-image: url('{% static 'images/ad3.jpg' %}'); animation-delay: 0.9s;">
+    <div class="h-40 h-[200px] rounded-xl overflow-hidden glass-panel bg-cover bg-center relative animate-fade-in-up hover:scale-105 transition-custom" style="background-image: url('{% static 'images/ad3.jpg' %}'); animation-delay: 0.9s;">
       <div class="absolute inset-0 bg-black/30 rounded-xl flex items-center justify-center">
         <span class="text-white font-bold text-center px-4">Быстрая доставка по Москве и области</span>
       </div>
