@@ -3,25 +3,21 @@
 
 {% block title %}Каталог товаров — Gandas Uniforms{% endblock %}
 
-{% block description %}Каталог профессиональной униформы для медицинских учреждений и HoReCa. Халаты, костюмы, фартуки, форма для поваров и официантов. Оптовые поставки, индивидуальный пошив, доставка по России.{% endblock %}
-
-{% block keywords %}каталог униформы, медицинская одежда, халаты для врачей, форма для персонала, униформа HoReCa, оптовые заказы, индивидуальный пошив{% endblock %}
-
 {% block content %}
-<div class="container mx-auto px-4 py-6">
-  <!-- Главный баннер каталога -->
+<div class="px-4 py-6">
   {% with banner=catalog_banner %}
     {% if banner and banner.is_active %}
-      <div class="glass-panel p-6 mb-8 rounded-2xl overflow-hidden relative bg-cover bg-center" style="background-image: url('{% static banner.image.url %}');">
-        <div class="absolute inset-0 bg-black/40 rounded-2xl"></div>
-        <div class="relative z-10 text-center max-w-2xl mx-auto">
-          <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">{{ banner.title }}</h1>
+      <div class="glass-card p-6 md:p-12 mb-8 overflow-hidden relative group !p-0">
+        <div class="absolute inset-0 bg-cover bg-center z-0 opacity-80 group-hover:scale-105 transition-transform duration-700" style="background-image: url('{{ banner.image.url }}');"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-[#00008B]/50 to-transparent z-10 backdrop-blur-[2px]"></div>
+        <div class="relative z-20 text-left max-w-2xl mx-auto md:ml-10 p-8 md:p-12">
+          <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-3 drop-shadow-lg">{{ banner.title }}</h1>
           {% if banner.subtitle %}
-            <p class="text-xl text-white mb-4">{{ banner.subtitle }}</p>
+            <p class="text-lg md:text-2xl text-white/90 mb-6 font-medium drop-shadow-md">{{ banner.subtitle }}</p>
           {% endif %}
           {% if banner.link %}
-            <a href="{{ banner.link }}" class="inline-block bg-white text-[#00008B] font-bold px-6 py-3 rounded-lg hover:bg-gray-100 transition-custom">
-              Перейти в раздел
+            <a href="{{ banner.link }}" class="inline-block bg-white/30 backdrop-blur-md border border-white/50 text-white font-bold px-6 py-3 rounded-xl hover:bg-white hover:text-[#00008B] transition-glass shadow-lg">
+              Перейти
             </a>
           {% endif %}
         </div>
@@ -29,17 +25,20 @@
     {% endif %}
   {% endwith %}
 
-  <!-- Поиск и фильтры -->
-  <div class="glass-panel p-6 mb-8">
-    <h2 class="text-xl font-bold mb-4">Поиск и фильтры</h2>
-    <form method="get" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+  <div class="glass-card p-6 md:p-8 mb-10">
+    <div class="flex items-center gap-3 mb-6">
+      <i class="fas fa-sliders-h text-xl text-blue-600"></i>
+      <h2 class="text-xl md:text-2xl font-bold text-[#00008B]">Параметры поиска</h2>
+    </div>
+    
+    <form method="get" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
       <div>
-        <label for="q" class="block text-sm font-medium mb-1">Поиск</label>
-        <input type="text" name="q" id="q" value="{{ request.GET.q|default:'' }}" placeholder="Название, артикул..." class="w-full p-2 border rounded">
+        <label for="q" class="block text-xs font-bold mb-2 text-gray-600 uppercase tracking-wide">Поиск</label>
+        <input type="text" name="q" id="q" value="{{ request.GET.q|default:'' }}" placeholder="Название, артикул..." class="w-full p-3 bg-white/50 border border-white/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 transition-glass shadow-inner font-medium text-gray-800 placeholder-gray-500">
       </div>
       <div>
-        <label for="category" class="block text-sm font-medium mb-1">Категория</label>
-        <select name="category" id="category" class="w-full p-2 border rounded">
+        <label for="category" class="block text-xs font-bold mb-2 text-gray-600 uppercase tracking-wide">Категория</label>
+        <select name="category" id="category" class="w-full p-3 bg-white/50 border border-white/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 transition-glass shadow-inner font-medium text-gray-800 appearance-none">
           <option value="">Все категории</option>
           {% for cat in categories %}
             <option value="{{ cat.slug }}" {% if selected_category == cat.slug %}selected{% endif %}>
@@ -48,81 +47,90 @@
           {% endfor %}
         </select>
       </div>
-      <div>
-        <label for="min_price" class="block text-sm font-medium mb-1">Цена от</label>
-        <input type="number" name="min_price" id="min_price" value="{{ request.GET.min_price|default:'' }}" placeholder="0" class="w-full p-2 border rounded">
+      <div class="flex gap-3">
+        <div class="w-1/2">
+          <label for="min_price" class="block text-xs font-bold mb-2 text-gray-600 uppercase tracking-wide">Цена от</label>
+          <input type="number" name="min_price" id="min_price" value="{{ request.GET.min_price|default:'' }}" placeholder="0" class="w-full p-3 bg-white/50 border border-white/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 transition-glass shadow-inner font-medium text-gray-800">
+        </div>
+        <div class="w-1/2">
+          <label for="max_price" class="block text-xs font-bold mb-2 text-gray-600 uppercase tracking-wide">до</label>
+          <input type="number" name="max_price" id="max_price" value="{{ request.GET.max_price|default:'' }}" placeholder="10000" class="w-full p-3 bg-white/50 border border-white/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 transition-glass shadow-inner font-medium text-gray-800">
+        </div>
       </div>
-      <div>
-        <label for="max_price" class="block text-sm font-medium mb-1">Цена до>
-        <input type="number" name="max_price" id="max_price" value="{{ request.GET.max_price|default:'' }}" placeholder="10000" class="w-full p-2 border rounded">
-      </div>
+      
       {% if main_category == 'medical' %}
         <div>
-          <label for="gender" class="block text-sm font-medium mb-1">Пол</label>
-          <select name="gender" id="gender" class="w-full p-2 border rounded">
+          <label for="gender" class="block text-xs font-bold mb-2 text-gray-600 uppercase tracking-wide">Пол</label>
+          <select name="gender" id="gender" class="w-full p-3 bg-white/50 border border-white/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 transition-glass shadow-inner font-medium text-gray-800 appearance-none">
             <option value="">Любой</option>
             <option value="male" {% if selected_gender == 'male' %}selected{% endif %}>Мужской</option>
             <option value="female" {% if selected_gender == 'female' %}selected{% endif %}>Женский</option>
- <option value="unisex" {% if selected_gender == 'unisex' %}selected{% endif %}>Унисекс</option>
+            <option value="unisex" {% if selected_gender == 'unisex' %}selected{% endif %}>Унисекс</option>
+          </select>
+        </div>
+      {% else %}
+        <div>
+          <label for="sort" class="block text-xs font-bold mb-2 text-gray-600 uppercase tracking-wide">Сортировка</label>
+          <select name="sort" id="sort" class="w-full p-3 bg-white/50 border border-white/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 transition-glass shadow-inner font-medium text-gray-800 appearance-none">
+            <option value="-created_at" {% if sort == '-created_at' %}selected{% endif %}>Сначала новинки</option>
+            <option value="base_price" {% if sort == 'base_price' %}selected{% endif %}>Сначала дешёвые</option>
+            <option value="-base_price" {% if sort == '-base_price' %}selected{% endif %}>Сначала дорогие</option>
           </select>
         </div>
       {% endif %}
-      <div>
-        <label for="sort" class="block text-sm font-medium mb-1">Сортировка</label>
-        <select name="sort" id="sort" class="w-full p-2 border rounded">
-          <option value="-created_at" {% if sort == '-created_at' %}selected{% endif %}>Новинки</option>
-          <option value="base_price" {% if sort == 'base_price' %}selected{% endif %}>Цена: от дешёвых</option>
-          <option value="-base_price" {% if sort == '-base_price' %}selected{% endif %}>Цена: от дорогих</option>
-        </select>
+      
+      <div class="sm:col-span-2 lg:col-span-4 flex justify-end mt-2">
+        <button type="submit" class="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl transition-glass font-bold shadow-lg shadow-blue-500/30">Применить фильтры</button>
       </div>
     </form>
   </div>
 
-  <!-- Товары -->
   {% if products %}
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
       {% for product in products %}
-        <div class="glass-panel p-4 hover:scale-105 transition-custom">
+        <div class="glass-card p-5 flex flex-col h-full group relative">
+          <div class="absolute top-8 right-8 z-10 bg-white/80 backdrop-blur-sm border border-white text-blue-600 text-xs font-bold px-2 py-1 rounded-lg shadow-sm">
+            Hit
+          </div>
+          
           {% if product.images.first %}
-            <div class="relative w-full h-48 overflow-hidden rounded-lg mb-3">
-              <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover">
-              {% if product.images.all|length > 1 %}
-                <img src="{{ product.images.1.image.url }}" alt="{{ product.name }} hover" 
-                     class="absolute top-0 left-0 w-full h-full object-cover opacity-0 hover:opacity-100 transition-opacity">
-              {% endif %}
+            <div class="relative w-full h-48 md:h-56 overflow-hidden rounded-xl mb-4 bg-white/50 shadow-inner flex items-center justify-center p-2">
+              <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-500 drop-shadow-md">
             </div>
           {% else %}
-            <div class="w-full h-48 bg-gray-200 rounded-lg flex items-center justify-center mb-3">
-              <span class="text-gray-500">Нет фото</span>
+            <div class="w-full h-48 md:h-56 bg-white/30 rounded-xl flex items-center justify-center mb-4 shadow-inner">
+              <i class="fas fa-image text-3xl text-gray-400"></i>
             </div>
           {% endif %}
-          <h3 class="font-bold text-lg mb-1">{{ product.name }}</h3>
-          <p class="text-blue-500 font-semibold mb-3">от {{ product.base_price }} ₽</p>
-          <a href="{% url 'product_detail' product.pk %}" class="text-blue-600 hover:underline inline-block">Подробнее</a>
-        </div>
-      {% empty %}
-        <div class="col-span-full glass-panel p-8 text-center">
-          <p class="text-xl">Товары не найдены.</p>
-          <a href="{% url 'product_list' %}" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded">Сбросить фильтры</a>
+          
+          <h3 class="font-extrabold text-lg mb-2 flex-grow text-[#00008B] leading-tight">{{ product.name }}</h3>
+          <p class="text-blue-600 font-black text-xl mb-4">{{ product.base_price }} ₽</p>
+          
+          <a href="{% url 'product_detail' product.pk %}" class="text-center w-full bg-white/60 border border-white/80 hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-600 hover:text-white hover:border-transparent text-blue-700 py-3 rounded-xl transition-glass font-bold shadow-sm">Смотреть детали</a>
         </div>
       {% endfor %}
     </div>
 
-    <!-- Пагинация -->
     {% if is_paginated %}
-      <div class="flex justify-center mt-8 space-x-2">
+      <div class="flex justify-center mt-12 gap-2 flex-wrap">
         {% if page_obj.has_previous %}
-          <a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.category %}category={{ request.GET.category }}&{% endif %}{% if request.GET.min_price %}min_price={{ request.GET.min_price }}&{% endif %}{% if request.GET.max_price %}max_price={{ request.GET.max_price }}&{% endif %}{% if request.GET.gender %}gender={{ request.GET.gender }}&{% endif %}page={{ page_obj.previous_page_number }}" class="px-4 py-2 bg-blue-500 text-white rounded">&lt;</a>
+          <a href="?page={{ page_obj.previous_page_number }}" class="w-10 h-10 flex items-center justify-center bg-white/60 border border-white/80 text-blue-600 rounded-xl hover:bg-blue-500 hover:text-white transition-glass font-bold shadow-sm">&lt;</a>
         {% endif %}
-        <span class="px-4 py-2 bg-gray-200 rounded">{{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+        
+        <div class="px-5 h-10 flex items-center justify-center bg-blue-600 text-white rounded-xl font-bold shadow-md shadow-blue-500/30">
+          {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+        </div>
+        
         {% if page_obj.has_next %}
-          <a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.category %}category={{ request.GET.category }}&{% endif %}{% if request.GET.min_price %}min_price={{ request.GET.min_price }}&{% endif %}{% if request.GET.max_price %}max_price={{ request.GET.max_price }}&{% endif %}{% if request.GET.gender %}gender={{ request.GET.gender }}&{% endif %}page={{ page_obj.next_page_number }}" class="px-4 py-2 bg-blue-500 text-white rounded">&gt;</a>
+          <a href="?page={{ page_obj.next_page_number }}" class="w-10 h-10 flex items-center justify-center bg-white/60 border border-white/80 text-blue-600 rounded-xl hover:bg-blue-500 hover:text-white transition-glass font-bold shadow-sm">&gt;</a>
         {% endif %}
       </div>
     {% endif %}
   {% else %}
-    <div class="glass-panel p-8 text-center">
-      <p>Каталог пуст. Создайте товары в админке.</p>
+    <div class="glass-card p-12 text-center">
+      <i class="fas fa-box-open text-5xl text-gray-400 mb-4"></i>
+      <p class="text-xl font-bold text-gray-700">Товары не найдены.</p>
+      <a href="{% url 'product_list' %}" class="mt-6 inline-block bg-blue-600 text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-700 transition-glass shadow-lg">Сбросить фильтры</a>
     </div>
   {% endif %}
 </div>

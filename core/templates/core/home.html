@@ -2,122 +2,132 @@
 {% load static %}
 
 {% block content %}
-<div class="container mx-auto px-4 py-6">
-  <!-- Главный баннер -->
-  <div class="glass-panel min-h-[400px] p-[80px] mb-10 rounded-2xl overflow-hidden relative bg-cover bg-center" style="background-image: url('{% static 'images/main-banner.jpg' %}');">
-    <div class="absolute inset-0 bg-black/40 rounded-2xl"></div>
-    <div class="relative z-10 text-center max-w-2xl mx-auto">
-      <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Профессиональная униформа для всех</h1>
-      <p class="text-xl text-white mb-6">Стиль, комфорт и надёжность в каждой детали</p>
-      <a href="{% url 'product_list' %}" class="inline-block bg-white text-[#00008B] font-bold px-6 py-3 rounded-lg hover:bg-gray-100 transition-custom">
+<div class="px-4 py-6">
+  <div class="glass-card min-h-[300px] md:min-h-[450px] p-6 md:p-[80px] mb-12 overflow-hidden relative flex flex-col justify-center group">
+    <div class="absolute inset-0 bg-cover bg-center z-0 opacity-80 group-hover:scale-105 transition-transform duration-700" style="background-image: url('{% static 'images/main-banner.jpg' %}');"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-[#00008B]/60 to-transparent z-10"></div>
+    
+    <div class="relative z-20 text-left max-w-2xl mx-auto md:ml-10">
+      <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-4 leading-tight drop-shadow-lg">Профессиональная униформа для всех</h1>
+      <p class="text-lg md:text-2xl text-white/90 mb-8 font-light drop-shadow-md">Стиль, комфорт и надёжность в каждой детали</p>
+      <a href="{% url 'product_list' %}" class="inline-block bg-white/20 backdrop-blur-md border border-white/50 text-white font-bold px-8 py-4 rounded-xl hover:bg-white hover:text-[#00008B] transition-glass shadow-[0_8px_32px_0_rgba(0,0,0,0.2)]">
         Перейти в каталог
       </a>
     </div>
   </div>
 
-  <!-- Информация о компании -->
-  <div class="glass-panel p-6 mb-8 animate-fade-in-up" style="animation-delay: 0.1s;">
-    <h2 class="text-2xl font-bold mb-4">О нас</h2>
-    <p class="mb-4">
+  <div class="glass-card p-8 mb-12 animate-fade-in-up" style="animation-delay: 0.1s;">
+    <h2 class="text-2xl md:text-3xl font-extrabold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#00008B] to-blue-500 inline-block">О нас</h2>
+    <p class="mb-4 text-sm md:text-lg text-gray-800 leading-relaxed font-medium">
       Мы — команда специалистов, которая уже более 5 лет создаёт качественную и функциональную одежду для медицинских учреждений и предприятий сферы HoReCa по всей России.
     </p>
-    <p>
+    <p class="text-sm md:text-lg text-gray-800 leading-relaxed font-medium">
       Наша миссия — обеспечить работников комфортом, безопасностью и эстетикой на рабочем месте. Мы тщательно отбираем ткани, проектируем эргономичные модели и контролируем каждый этап производства, чтобы вы получали одежду, которая служит долго, сохраняет внешний вид после многократных стирок и соответствует всем профессиональным требованиям.
     </p>
   </div>
 
-  <!-- Блок "Преимущества" -->
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-    <div class="glass-panel text-center p-6 animate-fade-in-up hover:scale-105 transition-custom" style="animation-delay: 0.2s;">
-      <i class="fas fa-award text-4xl text-blue-500 mb-4"></i>
-      <h3 class="text-xl font-bold mb-2">Более 15 лет на рынке</h3>
-      <p>Надёжный партнёр для тысяч клиентов по всей России и Туркменистану</p>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 mb-12">
+    <div class="glass-card text-center p-8 animate-fade-in-up" style="animation-delay: 0.2s;">
+      <div class="w-20 h-20 mx-auto bg-white/50 rounded-2xl shadow-inner flex items-center justify-center mb-6 transform -rotate-3 hover:rotate-0 transition-glass">
+        <i class="fas fa-award text-4xl text-blue-600"></i>
+      </div>
+      <h3 class="text-lg md:text-xl font-bold mb-3">Более 15 лет на рынке</h3>
+      <p class="text-sm md:text-base text-gray-700 font-medium">Надёжный партнёр для тысяч клиентов по всей России и Туркменистану</p>
     </div>
-    <div class="glass-panel text-center p-6 animate-fade-in-up hover:scale-105 transition-custom" style="animation-delay: 0.3s;">
-      <i class="fas fa-truck text-4xl text-blue-500 mb-4"></i>
-      <h3 class="text-xl font-bold mb-2">Доставка по всей России</h3>
-      <p>Оперативная доставка в любую точку страны</p>
+    <div class="glass-card text-center p-8 animate-fade-in-up" style="animation-delay: 0.3s;">
+      <div class="w-20 h-20 mx-auto bg-white/50 rounded-2xl shadow-inner flex items-center justify-center mb-6 transform rotate-3 hover:rotate-0 transition-glass">
+        <i class="fas fa-truck text-4xl text-blue-600"></i>
+      </div>
+      <h3 class="text-lg md:text-xl font-bold mb-3">Доставка по всей России</h3>
+      <p class="text-sm md:text-base text-gray-700 font-medium">Оперативная доставка в любую точку страны</p>
     </div>
-    <div class="glass-panel text-center p-6 animate-fade-in-up hover:scale-105 transition-custom" style="animation-delay: 0.4s;">
-      <i class="fas fa-store text-4xl text-blue-500 mb-4"></i>
-      <h3 class="text-xl font-bold mb-2">Множество точек продаж</h3>
-      <p>Более тысячи довольных клиентов и точек по всей стране</p>
+    <div class="glass-card text-center p-8 animate-fade-in-up sm:col-span-2 md:col-span-1" style="animation-delay: 0.4s;">
+      <div class="w-20 h-20 mx-auto bg-white/50 rounded-2xl shadow-inner flex items-center justify-center mb-6 transform -rotate-3 hover:rotate-0 transition-glass">
+        <i class="fas fa-store text-4xl text-blue-600"></i>
+      </div>
+      <h3 class="text-lg md:text-xl font-bold mb-3">Множество точек продаж</h3>
+      <p class="text-sm md:text-base text-gray-700 font-medium">Более тысячи довольных клиентов и точек по всей стране</p>
     </div>
   </div>
 
-  <!-- Баннеры: Медицина / HoReCa -->
-  <div class="banner-category mb-8">
-    <a href="{% url 'product_list' %}?main_category=medical" class="banner-medical bg-cover bg-center relative" style="background-image: url('{% static 'images/medical-banner.jpg' %}');">
-      <div class="banner-text-overlay">
-        <h3 class="text-2xl">Медицина</h3>
-        <p class="text-xl">Халаты, костюмы, аксессуары</p>
+  <div class="flex flex-col sm:flex-row gap-6 mb-12">
+    <a href="{% url 'product_list' %}?main_category=medical" class="glass-card relative w-full sm:w-1/2 h-56 md:h-72 overflow-hidden block group !p-0">
+      <div class="absolute inset-0 bg-cover bg-center z-0 opacity-80 group-hover:scale-110 transition-transform duration-700" style="background-image: url('{% static 'images/medical-banner.jpg' %}');"></div>
+      <div class="absolute inset-0 bg-blue-900/30 group-hover:bg-blue-900/40 transition-glass z-10 backdrop-blur-[2px]"></div>
+      <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center p-6 z-20">
+        <h3 class="text-2xl md:text-4xl font-extrabold drop-shadow-lg mb-2">Медицина</h3>
+        <p class="text-base md:text-xl font-medium drop-shadow-md bg-black/20 px-4 py-1 rounded-full backdrop-blur-md border border-white/20">Халаты, костюмы, аксессуары</p>
       </div>
     </a>
-    <a href="{% url 'product_list' %}?main_category=horeca" class="banner-horeca bg-cover bg-center relative" style="background-image: url('{% static 'images/horeca-banner.jpg' %}');">
-      <div class="banner-text-overlay">
-        <h3 class="text-2xl">HoReCa</h3>
-        <p class="text-lg">Форма для поваров и официантов</p>
+    <a href="{% url 'product_list' %}?main_category=horeca" class="glass-card relative w-full sm:w-1/2 h-56 md:h-72 overflow-hidden block group !p-0">
+      <div class="absolute inset-0 bg-cover bg-center z-0 opacity-80 group-hover:scale-110 transition-transform duration-700" style="background-image: url('{% static 'images/horeca-banner.jpg' %}');"></div>
+      <div class="absolute inset-0 bg-orange-900/30 group-hover:bg-orange-900/40 transition-glass z-10 backdrop-blur-[2px]"></div>
+      <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center p-6 z-20">
+        <h3 class="text-2xl md:text-4xl font-extrabold drop-shadow-lg mb-2">HoReCa</h3>
+        <p class="text-base md:text-xl font-medium drop-shadow-md bg-black/20 px-4 py-1 rounded-full backdrop-blur-md border border-white/20">Форма для поваров и официантов</p>
       </div>
     </a>
   </div>
 
-  <!-- Информация под баннерами -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-    <div class="glass-panel p-6 animate-fade-in-up" style="animation-delay: 0.5s;">
-      <h3 class="text-xl font-bold mb-3">Медицинская одежда</h3>
-      <p>
-        Наша медицинская униформа разработана с учётом потребностей врачей и медперсонала. Мы используем дышащие, антимикробные ткани, которые обеспечивают комфорт в течение всего рабочего дня. Все изделия соответствуют медицинским стандартам и легко поддаются стерилизации.
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-12">
+    <div class="glass-card p-8 animate-fade-in-up" style="animation-delay: 0.5s;">
+      <h3 class="text-xl md:text-2xl font-bold mb-4 text-[#00008B]">Медицинская одежда</h3>
+      <p class="text-sm md:text-base font-medium text-gray-800 mb-4">
+        Наша медицинская униформа разработана с учётом потребностей врачей и медперсонала. Мы используем дышащие, антимикробные ткани, которые обеспечивают комфорт в течение всего рабочего дня.
       </p>
-      <ul class="mt-3 list-disc pl-5 space-y-1">
-        <li>Стильные и удобные халаты</li>
-        <li>Одежда для операционных бригад</li>
-        <li>Аксессуары: головные уборы, тапочки, маски</li>
-        <li>Возможность нанесения логотипа</li>
+      <ul class="space-y-3 text-sm md:text-base font-medium text-gray-700">
+        <li class="flex items-center"><i class="fas fa-check-circle text-blue-500 mr-3"></i> Стильные и удобные халаты</li>
+        <li class="flex items-center"><i class="fas fa-check-circle text-blue-500 mr-3"></i> Одежда для операционных бригад</li>
+        <li class="flex items-center"><i class="fas fa-check-circle text-blue-500 mr-3"></i> Аксессуары: головные уборы, маски</li>
+        <li class="flex items-center"><i class="fas fa-check-circle text-blue-500 mr-3"></i> Нанесение логотипа</li>
       </ul>
     </div>
-    <div class="glass-panel p-6 animate-fade-in-up" style="animation-delay: 0.6s;">
-      <h3 class="text-xl font-bold mb-3">HoReCa униформа</h3>
-      <p>
-        Униформа для сферы общественного питания и гостеприимства — это не только стиль, но и функциональность. Мы создаём одежду, которая подчёркивает имидж заведения и обеспечивает комфорт персоналу.
+    <div class="glass-card p-8 animate-fade-in-up" style="animation-delay: 0.6s;">
+      <h3 class="text-xl md:text-2xl font-bold mb-4 text-[#00008B]">HoReCa униформа</h3>
+      <p class="text-sm md:text-base font-medium text-gray-800 mb-4">
+        Униформа для сферы общественного питания — это стиль и функциональность. Мы создаём одежду, которая подчёркивает имидж заведения и обеспечивает комфорт персоналу.
       </p>
-      <ul class="mt-3 list-disc pl-5 space-y-1">
-        <li>Форма для поваров: куртки, брюки, колпаки</li>
-        <li>Одежда для официантов: жилеты, рубашки, юбки</li>
-        <li>Аксессуары: передники, платки, бейджи</li>
-        <li>Оптовые поставки для сетей</li>
+      <ul class="space-y-3 text-sm md:text-base font-medium text-gray-700">
+        <li class="flex items-center"><i class="fas fa-check-circle text-orange-500 mr-3"></i> Форма для поваров: куртки, брюки</li>
+        <li class="flex items-center"><i class="fas fa-check-circle text-orange-500 mr-3"></i> Одежда для официантов: жилеты</li>
+        <li class="flex items-center"><i class="fas fa-check-circle text-orange-500 mr-3"></i> Аксессуары: передники, бейджи</li>
+        <li class="flex items-center"><i class="fas fa-check-circle text-orange-500 mr-3"></i> Оптовые поставки для сетей</li>
       </ul>
     </div>
   </div>
 
-  <!-- 3 рекламных баннера -->
-  <div class="grid min-h-[200px] grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-    <div class="h-40 h-[200px] rounded-xl overflow-hidden glass-panel bg-cover bg-center relative animate-fade-in-up hover:scale-105 transition-custom" style="background-image: url('{% static 'images/ad1.jpg' %}'); animation-delay: 0.7s;">
-      <div class="absolute inset-0 bg-black/30 rounded-xl flex items-center justify-center">
-        <span class="text-white font-bold text-center px-4">Скидки до 30% на осеннюю коллекцию!</span>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-12">
+    <div class="glass-card h-[160px] md:h-[220px] overflow-hidden relative animate-fade-in-up group !p-0" style="animation-delay: 0.7s;">
+      <div class="absolute inset-0 bg-cover bg-center z-0 opacity-90 group-hover:scale-110 transition-transform duration-500" style="background-image: url('{% static 'images/ad1.jpg' %}');"></div>
+      <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-glass z-10 backdrop-blur-[1px]"></div>
+      <div class="absolute inset-0 flex items-center justify-center p-6 z-20">
+        <span class="text-white font-bold text-center text-base md:text-lg drop-shadow-lg bg-black/30 px-4 py-2 rounded-xl border border-white/20 backdrop-blur-md">Скидки до 30% на осеннюю коллекцию!</span>
       </div>
     </div>
-    <div class="h-[200px] rounded-xl overflow-hidden glass-panel bg-cover bg-center relative animate-fade-in-up hover:scale-105 transition-custom" style="background-image: url('{% static 'images/ad2.jpg' %}'); animation-delay: 0.8s;">
-      <div class="absolute inset-0 bg-black/30 rounded-xl flex items-center justify-center">
-        <span class="text-white font-bold text-center px-4">Индивидуальный пошив по вашим меркам</span>
+    <div class="glass-card h-[160px] md:h-[220px] overflow-hidden relative animate-fade-in-up group !p-0" style="animation-delay: 0.8s;">
+      <div class="absolute inset-0 bg-cover bg-center z-0 opacity-90 group-hover:scale-110 transition-transform duration-500" style="background-image: url('{% static 'images/ad2.jpg' %}');"></div>
+      <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-glass z-10 backdrop-blur-[1px]"></div>
+      <div class="absolute inset-0 flex items-center justify-center p-6 z-20">
+        <span class="text-white font-bold text-center text-base md:text-lg drop-shadow-lg bg-black/30 px-4 py-2 rounded-xl border border-white/20 backdrop-blur-md">Индивидуальный пошив по вашим меркам</span>
       </div>
     </div>
-    <div class="h-40 h-[200px] rounded-xl overflow-hidden glass-panel bg-cover bg-center relative animate-fade-in-up hover:scale-105 transition-custom" style="background-image: url('{% static 'images/ad3.jpg' %}'); animation-delay: 0.9s;">
-      <div class="absolute inset-0 bg-black/30 rounded-xl flex items-center justify-center">
-        <span class="text-white font-bold text-center px-4">Быстрая доставка по Москве и области</span>
+    <div class="glass-card h-[160px] md:h-[220px] overflow-hidden relative animate-fade-in-up group sm:col-span-2 md:col-span-1 !p-0" style="animation-delay: 0.9s;">
+      <div class="absolute inset-0 bg-cover bg-center z-0 opacity-90 group-hover:scale-110 transition-transform duration-500" style="background-image: url('{% static 'images/ad3.jpg' %}');"></div>
+      <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-glass z-10 backdrop-blur-[1px]"></div>
+      <div class="absolute inset-0 flex items-center justify-center p-6 z-20">
+        <span class="text-white font-bold text-center text-base md:text-lg drop-shadow-lg bg-black/30 px-4 py-2 rounded-xl border border-white/20 backdrop-blur-md">Быстрая доставка по Москве и области</span>
       </div>
     </div>
   </div>
 
-  <!-- Информация под рекламными баннерами -->
-  <div class="glass-panel p-6 mb-8 animate-fade-in-up" style="animation-delay: 1s;">
-    <h3 class="text-xl font-bold mb-3">Почему выбирают нас?</h3>
-    <ul class="list-disc pl-5 space-y-2">
-      <li>Собственное производство — полный контроль качества</li>
-      <li>Индивидуальный пошив и нанесение логотипа</li>
-      <li>Гарантия на все изделия</li>
-      <li>Сотрудничество с ведущими брендами и сетями</li>
-      <li>Опыт работы более 15 лет</li>
-    </ul>
+  <div class="glass-card p-8 mb-8 animate-fade-in-up" style="animation-delay: 1s;">
+    <h3 class="text-xl md:text-2xl font-bold mb-6 text-center text-[#00008B]">Почему выбирают нас?</h3>
+    <div class="flex flex-wrap justify-center gap-4 text-sm md:text-base font-medium">
+      <span class="bg-white/40 border border-white/60 px-4 py-2 rounded-full shadow-sm text-gray-800">Собственное производство</span>
+      <span class="bg-white/40 border border-white/60 px-4 py-2 rounded-full shadow-sm text-gray-800">Индивидуальный пошив</span>
+      <span class="bg-white/40 border border-white/60 px-4 py-2 rounded-full shadow-sm text-gray-800">Гарантия качества</span>
+      <span class="bg-white/40 border border-white/60 px-4 py-2 rounded-full shadow-sm text-gray-800">Опыт более 15 лет</span>
+    </div>
   </div>
 </div>
 {% endblock %}
