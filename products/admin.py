@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Product, ProductImage, Color, Size, ProductVariant, HomePageBanner
+from .models import Category, CatalogBanner, Product, ProductImage, Color, Size, ProductVariant
 
 class ProductImageInline(admin.TabularInline):
     model = ProductImage
@@ -15,17 +15,18 @@ class CategoryAdmin(admin.ModelAdmin):
     list_filter = ('type',)
     prepopulated_fields = {'slug': ('name',)}
 
-@admin.register(HomePageBanner)
-class HomePageBannerAdmin(admin.ModelAdmin):
-    list_display = ('title', 'is_active', 'image')
-    list_filter = ('is_active',)
+@admin.register(CatalogBanner)
+class CatalogBannerAdmin(admin.ModelAdmin):
+    list_display = ('title', 'subtitle', 'is_active', 'order', 'image')
+    list_filter = ('is_active',)  # ✅ УБРАЛИ 'category__type' — его нет в модели
+    search_fields = ('title', 'subtitle')
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'category', 'base_price', 'created_at')
-    list_filter = ('category', 'created_at')
+    list_display = ('name', 'category', 'gender', 'base_price', 'created_at')
+    list_filter = ('category', 'gender', 'created_at')
+    search_fields = ('name', 'description')
     inlines = [ProductImageInline, ProductVariantInline]
-    search_fields = ('name',)
 
 @admin.register(Color)
 class ColorAdmin(admin.ModelAdmin):

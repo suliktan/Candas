@@ -1,50 +1,129 @@
 {% extends 'base.html' %}
-{% block title %}Каталог товаров{% endblock %}
+{% load static %}
+
+{% block title %}Каталог товаров — Gandas Uniforms{% endblock %}
+
+{% block description %}Каталог профессиональной униформы для медицинских учреждений и HoReCa. Халаты, костюмы, фартуки, форма для поваров и официантов. Оптовые поставки, индивидуальный пошив, доставка по России.{% endblock %}
+
+{% block keywords %}каталог униформы, медицинская одежда, халаты для врачей, форма для персонала, униформа HoReCa, оптовые заказы, индивидуальный пошив{% endblock %}
 
 {% block content %}
-<h1 class="text-3xl font-bold mb-6">Каталог</h1>
+<div class="container mx-auto px-4 py-6">
+  <!-- Главный баннер каталога -->
+  {% with banner=catalog_banner %}
+    {% if banner and banner.is_active %}
+      <div class="glass-panel p-6 mb-8 rounded-2xl overflow-hidden relative bg-cover bg-center" style="background-image: url('{% static banner.image.url %}');">
+        <div class="absolute inset-0 bg-black/40 rounded-2xl"></div>
+        <div class="relative z-10 text-center max-w-2xl mx-auto">
+          <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">{{ banner.title }}</h1>
+          {% if banner.subtitle %}
+            <p class="text-xl text-white mb-4">{{ banner.subtitle }}</p>
+          {% endif %}
+          {% if banner.link %}
+            <a href="{{ banner.link }}" class="inline-block bg-white text-[#00008B] font-bold px-6 py-3 rounded-lg hover:bg-gray-100 transition-custom">
+              Перейти в раздел
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  {% endwith %}
 
-<div class="glass-panel mb-6 p-4">
-  <h3 class="text-lg font-semibold mb-2">Фильтры</h3>
-  <form method="get" class="flex flex-wrap gap-4">
-    <select name="category" class="p-2 border rounded" onchange="this.form.submit()">
-      <option value="">Все категории</option>
-      {% for cat in categories %}
-        <option value="{{ cat.slug }}" {% if selected_category == cat.slug %}selected{% endif %}>
-          {{ cat.name }}
-        </option>
-      {% endfor %}
-    </select>
-  </form>
-</div>
-
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-  {% for product in products %}
-    <div class="glass-panel p-4">
-      {% if product.images.first %}
-        <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="w-full h-40 object-cover rounded mb-3">
-      {% else %}
-        <div class="w-full h-40 bg-gray-200 rounded mb-3 flex items-center justify-center">Нет фото</div>
+  <!-- Поиск и фильтры -->
+  <div class="glass-panel p-6 mb-8">
+    <h2 class="text-xl font-bold mb-4">Поиск и фильтры</h2>
+    <form method="get" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div>
+        <label for="q" class="block text-sm font-medium mb-1">Поиск</label>
+        <input type="text" name="q" id="q" value="{{ request.GET.q|default:'' }}" placeholder="Название, артикул..." class="w-full p-2 border rounded">
+      </div>
+      <div>
+        <label for="category" class="block text-sm font-medium mb-1">Категория</label>
+        <select name="category" id="category" class="w-full p-2 border rounded">
+          <option value="">Все категории</option>
+          {% for cat in categories %}
+            <option value="{{ cat.slug }}" {% if selected_category == cat.slug %}selected{% endif %}>
+              {{ cat.name }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label for="min_price" class="block text-sm font-medium mb-1">Цена от</label>
+        <input type="number" name="min_price" id="min_price" value="{{ request.GET.min_price|default:'' }}" placeholder="0" class="w-full p-2 border rounded">
+      </div>
+      <div>
+        <label for="max_price" class="block text-sm font-medium mb-1">Цена до>
+        <input type="number" name="max_price" id="max_price" value="{{ request.GET.max_price|default:'' }}" placeholder="10000" class="w-full p-2 border rounded">
+      </div>
+      {% if main_category == 'medical' %}
+        <div>
+          <label for="gender" class="block text-sm font-medium mb-1">Пол</label>
+          <select name="gender" id="gender" class="w-full p-2 border rounded">
+            <option value="">Любой</option>
+            <option value="male" {% if selected_gender == 'male' %}selected{% endif %}>Мужской</option>
+            <option value="female" {% if selected_gender == 'female' %}selected{% endif %}>Женский</option>
+ <option value="unisex" {% if selected_gender == 'unisex' %}selected{% endif %}>Унисекс</option>
+          </select>
+        </div>
       {% endif %}
-      <h3 class="text-lg font-bold mb-1">{{ product.name }}</h3>
-      <p class="text-blue-500 font-semibold">от {{ product.base_price }} ₽</p>
-      <a href="{% url 'product_detail' product.pk %}" class="text-blue-600 mt-2 inline-block">Подробнее</a>
-    </div>
-  {% empty %}
-    <p>Товары не найдены.</p>
-  {% endfor %}
-</div>
-
-<!-- Пагинация -->
-{% if is_paginated %}
-  <div class="flex justify-center mt-6 space-x-2">
-    {% if page_obj.has_previous %}
-      <a href="?page={{ page_obj.previous_page_number }}" class="px-4 py-2 bg-blue-500 text-white rounded">&>
-    {% endif %}
-    <span class="px-4 py-2 bg-gray-200 rounded">{{ page_obj.number }}</span>
-    {% if page_obj.has_next %}
-      <a href="?page={{ page_obj.next_page_number }}" class="px-4 py-2 bg-blue-500 text-white rounded">&raquo;</a>
-    {% endif %}
+      <div>
+        <label for="sort" class="block text-sm font-medium mb-1">Сортировка</label>
+        <select name="sort" id="sort" class="w-full p-2 border rounded">
+          <option value="-created_at" {% if sort == '-created_at' %}selected{% endif %}>Новинки</option>
+          <option value="base_price" {% if sort == 'base_price' %}selected{% endif %}>Цена: от дешёвых</option>
+          <option value="-base_price" {% if sort == '-base_price' %}selected{% endif %}>Цена: от дорогих</option>
+        </select>
+      </div>
+    </form>
   </div>
-{% endif %}
+
+  <!-- Товары -->
+  {% if products %}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for product in products %}
+        <div class="glass-panel p-4 hover:scale-105 transition-custom">
+          {% if product.images.first %}
+            <div class="relative w-full h-48 overflow-hidden rounded-lg mb-3">
+              <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover">
+              {% if product.images.all|length > 1 %}
+                <img src="{{ product.images.1.image.url }}" alt="{{ product.name }} hover" 
+                     class="absolute top-0 left-0 w-full h-full object-cover opacity-0 hover:opacity-100 transition-opacity">
+              {% endif %}
+            </div>
+          {% else %}
+            <div class="w-full h-48 bg-gray-200 rounded-lg flex items-center justify-center mb-3">
+              <span class="text-gray-500">Нет фото</span>
+            </div>
+          {% endif %}
+          <h3 class="font-bold text-lg mb-1">{{ product.name }}</h3>
+          <p class="text-blue-500 font-semibold mb-3">от {{ product.base_price }} ₽</p>
+          <a href="{% url 'product_detail' product.pk %}" class="text-blue-600 hover:underline inline-block">Подробнее</a>
+        </div>
+      {% empty %}
+        <div class="col-span-full glass-panel p-8 text-center">
+          <p class="text-xl">Товары не найдены.</p>
+          <a href="{% url 'product_list' %}" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded">Сбросить фильтры</a>
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- Пагинация -->
+    {% if is_paginated %}
+      <div class="flex justify-center mt-8 space-x-2">
+        {% if page_obj.has_previous %}
+          <a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.category %}category={{ request.GET.category }}&{% endif %}{% if request.GET.min_price %}min_price={{ request.GET.min_price }}&{% endif %}{% if request.GET.max_price %}max_price={{ request.GET.max_price }}&{% endif %}{% if request.GET.gender %}gender={{ request.GET.gender }}&{% endif %}page={{ page_obj.previous_page_number }}" class="px-4 py-2 bg-blue-500 text-white rounded">&lt;</a>
+        {% endif %}
+        <span class="px-4 py-2 bg-gray-200 rounded">{{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}
+          <a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.category %}category={{ request.GET.category }}&{% endif %}{% if request.GET.min_price %}min_price={{ request.GET.min_price }}&{% endif %}{% if request.GET.max_price %}max_price={{ request.GET.max_price }}&{% endif %}{% if request.GET.gender %}gender={{ request.GET.gender }}&{% endif %}page={{ page_obj.next_page_number }}" class="px-4 py-2 bg-blue-500 text-white rounded">&gt;</a>
+        {% endif %}
+      </div>
+    {% endif %}
+  {% else %}
+    <div class="glass-panel p-8 text-center">
+      <p>Каталог пуст. Создайте товары в админке.</p>
+    </div>
+  {% endif %}
+</div>
 {% endblock %}
