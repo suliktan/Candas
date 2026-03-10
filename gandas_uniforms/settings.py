@@ -4,7 +4,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-gandas-uniforms-secret-key-change-in-production'
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['medisinskayaodezhda.ru', 'www.medisinskayaodezhda.ru', '194.58.100.94', '127.0.0.1', 'localhost']
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
