@@ -7,6 +7,11 @@ SECRET_KEY = 'django-insecure-gandas-uniforms-secret-key-change-in-production'
 DEBUG = False
 ALLOWED_HOSTS = ['medisinskayaodezhda.ru', 'www.medisinskayaodezhda.ru', '194.58.100.94', '127.0.0.1', 'localhost']
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+CSRF_TRUSTED_ORIGINS = [
+    'https://medisinskayaodezhda.ru',
+    'https://www.medisinskayaodezhda.ru'
+]
 
 INSTALLED_APPS = [
     'jazzmin',
@@ -150,5 +155,4 @@ JAZZMIN_UI_TWEAKS = {
     "sidebar_nav_child_indent": False,
     "sidebar_collapse": False,
     "theme": "default",
-    "dark_mode_theme": None,
 }
